@@ -87,4 +87,36 @@ public class Dao {
 		}
 		return asiakkaat;
 	}
+	
+	public ArrayList<asiakas> getAllItems(String searchStr) { 
+		ArrayList<asiakas> asiakkaat = new ArrayList<asiakas>();
+		sql = "SELECT * FROM asiakkaat WHERE etunimi LIKE ? or sukunimi LIKE ? or puhelin LIKE ? or sposti LIKE ? ORDER BY asiakas_id";
+		try {
+			con = yhdista();
+			if (con != null) { // jos yhteys onnistui
+				stmtPrep = con.prepareStatement(sql);
+				stmtPrep.setString(1, "%" + searchStr + "%");
+				stmtPrep.setString(2, "%" + searchStr + "%");
+				stmtPrep.setString(3, "%" + searchStr + "%");
+				stmtPrep.setString(4, "%" + searchStr + "%");
+				rs = stmtPrep.executeQuery();
+				if (rs != null) { // jos kysely onnistui
+					while (rs.next()) {
+						asiakas asiakas = new asiakas();
+						asiakas.setAsiakas_id(rs.getInt(1));
+						asiakas.setEtunimi(rs.getString(2));
+						asiakas.setSukunimi(rs.getString(3));
+						asiakas.setPuhelin(rs.getString(4));
+						asiakas.setSposti(rs.getString(5));
+						asiakkaat.add(asiakas);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			sulje();
+		}
+		return asiakkaat;
+	}
 }
