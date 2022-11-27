@@ -1,0 +1,43 @@
+@charset "UTF-8";
+#listaus {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#listaus td, #listaus th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#listaus tr:nth-child(even){background-color: #f2f2f2;}
+
+#listaus tr:hover {background-color: #ddd;}
+
+#listaus th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+
+.oikealle{
+	text-align: right !important;	
+}
+
+#linkki{
+	color: white !important;	
+	text-decoration: none !important;
+}
+
+#uusiAsiakas, #takaisin{
+	color: white;	
+	cursor: pointer;	
+}
+
+.poista{
+	color: red;
+	text-decoration: underline;
+	cursor: pointer;	
+}

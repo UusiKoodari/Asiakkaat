@@ -3,6 +3,7 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import model.asiakas;
+import model.Asiakas;
 import model.dao.Dao;
 
 @WebServlet("/asiakkaat1/*")
@@ -30,11 +31,11 @@ public class Asiakkaat1 extends HttpServlet {
 		String hakusana = request.getParameter("hakusana");
 		System.out.println(hakusana);
 		Dao dao = new Dao();
-		ArrayList<asiakas> asiakkaat;
+		ArrayList<Asiakas> asiakkaat;
 		String strJSON="";
 		
 		if (hakusana != null) {
-			if (hakusana.equals("")) {
+			if (!hakusana.equals("")) {
 				asiakkaat = dao.getAllItems(hakusana);
 			} else {
 				asiakkaat = dao.getAllItems();
@@ -50,6 +51,18 @@ public class Asiakkaat1 extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat1.doPost()");
+		
+				String strJSONInput = request.getReader().lines().collect(Collectors.joining());
+				Asiakas asiakas = new Gson().fromJson(strJSONInput, Asiakas.class);	
+				
+				Dao dao = new Dao();
+				response.setContentType("application/json; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				if(dao.addItem(asiakas)) {
+					out.println("{\"response\":1}");  
+				}else {
+					out.println("{\"response\":0}"); 
+				}
 	}
 
 	
@@ -59,6 +72,15 @@ public class Asiakkaat1 extends HttpServlet {
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Asiakkaat1.doDelete()");
+		int asiakas_id = Integer.parseInt(request.getParameter("asiakas_id"));
+		Dao dao = new Dao();
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		if(dao.removeItem(asiakas_id)) {
+			out.println("{\"response\":1}");  
+		}else {
+			out.println("{\"response\":0}");  
+		}
 	}
 
 }

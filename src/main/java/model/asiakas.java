@@ -1,13 +1,13 @@
 package model;
 
-public class asiakas {
+public class Asiakas {
 	private int asiakas_id;
 	private String etunimi, sukunimi, puhelin, sposti;
-	public asiakas() {
+	public Asiakas() {
 	
 	}
-	public asiakas(int id, String etunimi, String sukunimi, String puhelin, String sahkoposti) {
-		this.asiakas_id = id;
+	public Asiakas(int asiakas_id, String etunimi, String sukunimi, String puhelin, String sahkoposti) {
+		this.asiakas_id = asiakas_id;
 		this.etunimi = etunimi;
 		this.sukunimi = sukunimi;
 		this.puhelin = puhelin;
