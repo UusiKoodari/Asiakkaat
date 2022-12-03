@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="scripts/main.js"></script>
+<script src="scripts/io.js"></script>
 <title>Asiakkaiden listaus</title>
 <link rel="stylesheet" type="text/css" href="css/tyyli.css">
 </head>
-<body>
+<body onload="asetaFocus('hakusana')" onkeydown="tutkiKey(event, 'listaa')">
 <table id="listaus">
 	<thead>	
 		<tr>
@@ -32,7 +34,8 @@
 	</tbody>
 </table>
 <span id="ilmo"></span>
-<script src="scripts/main.js"></script>
+<script>
 
+</script>
 </body>
 </html>
